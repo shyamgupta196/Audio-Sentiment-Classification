@@ -1,7 +1,7 @@
 # Emotion Classification of Speech Audio
+Every human conversation carries hidden emotional currents—anger, joy, fear, and more—that shape social interactions, influence decision-making, and signal mental wellbeing. Yet manually analyzing thousands of audio recordings is impractical for large-scale social research.
 
-This tutorial demonstrates an end-to-end workflow for **automated emotion classification** from speech audio, using the RAVDESS and CREMA datasets. Tailored for social scientists, it covers data organization, preprocessing, feature extraction, model training in PyTorch, and expected inferences—highlighting methodological choices and their justifications, especially around detecting **anger**.
-
+This tutorial tackles that challenge head-on by demonstrating an end-to-end pipeline for automated emotion classification in speech audio. Using the benchmark RAVDESS and CREMA-D datasets, you’ll learn how to transform raw recordings into actionable insight: from organizing and preprocessing noisy clips to extracting perceptual features and training a TensorFlow model to detect emotions.
 ---
 
 ## Table of Contents
@@ -17,7 +17,7 @@ This tutorial demonstrates an end-to-end workflow for **automated emotion classi
    * E. Label Encoding & Split
 4. [Feature Summary & Dataset Sizes](#feature-summary--dataset-sizes)
 5. [Model Architecture](#model-architecture)
-6. [Training Loop (PyTorch)](#training-loop-pytorch)
+6. [Training Loop (Tensorflow)](#training-loop-tensorflow)
 7. [Expected Outcomes & Inferences](#expected-outcomes--inferences)
 8. [Justification for Anger Detection](#justification-for-anger-detection)
 9. [References](#references)
@@ -26,15 +26,18 @@ This tutorial demonstrates an end-to-end workflow for **automated emotion classi
 
 ## Overview
 
-We build a system that:
+In the current landscape of social research, understanding emotional tone in speech data is invaluable—whether studying political rhetoric, clinical interviews, or media narratives. This tutorial guides social scientists through a reproducible, end-to-end pipeline for **speech emotion classification**, leveraging two benchmark datasets (RAVDESS, CREMA-D) and modern deep learning.
 
-1. **Loads** two benchmark datasets of emotional speech (RAVDESS, CREMA).
-2. **Preprocesses** audio via cleaning, augmentation, and fixed-length feature extraction (MFCC, Chroma, Mel-Spectrogram).
-3. **Scales** and **encodes** features and labels for neural modeling.
-4. **Trains** a simple PyTorch neural network to predict emotion categories.
-5. **Evaluates** generalization on held-out test data.
+You will learn how to:
 
-The tutorial emphasizes **why** each step matters for robust, interpretable emotion research in social science contexts.
+1. **Organize and clean** raw audio files from multiple sources, ensuring consistency and reliability.
+2. **Augment** recordings to mimic real-world conditions and address class imbalances.
+3. **Extract perceptually grounded features** (MFCC, Chroma, Mel-Spectrogram) that capture the acoustic signatures of emotions.
+4. **Scale and encode** data for neural network consumption, preserving scientific rigor.
+5. **Implement and train** a TensorFlow/Keras classifier, interpreting loss and accuracy trends to validate model robustness.
+6. **Perform inference** on new speech samples, enabling large-scale emotional content analysis.
+
+By the end of this notebook, you will be equipped to apply automated emotion detection to your own speech corpora—drawing actionable insights into anger, joy, sadness, and more, with clear methodological justifications at every step.
 
 ---
 
@@ -55,7 +58,7 @@ The tutorial emphasizes **why** each step matters for robust, interpretable emot
 ### A. Data Cleaning & Organization
 
 1. **File listing:** Recursively scan dataset folders (`glob`, `os.listdir`).
-2. **Label parsing:** Extract emotion labels from filenames, map to a unified set (e.g., `disgust`, `fear`, `happy`, `sad`, `anger`, `neutral`).
+2. **Label parsing:** Extract emotion labels from filenames, map to a unified set (e.g., `disgust`, `fear`, `happy`, `sad`, `anger`, `neutral`, `sad`, `surprise` ).
 3. **Error handling:** Skip unreadable or silent files to avoid corrupted inputs.
 
 *Why?* Ensures a clean, consistent corpus free of I/O errors—critical before feature extraction.
@@ -111,82 +114,113 @@ For each clip (original + noisy):
 
 ## Model Architecture
 
-We implement a PyTorch neural network with:
+We implement a **TensorFlow/Keras** neural network.
 
 * **Input layer:** 180 neurons (one per feature).
 * **Hidden layers:** 128 → 64 units with ReLU activations.
-* **Output layer:** 6 neurons (one per emotion category).
-* **Loss:** `CrossEntropyLoss` (maps logits → class probabilities).
-* **Optimizer:** `Adam` (lr=0.001).
+* **Output layer:** Softmax activation over six emotion categories.
+* **Loss:** `CategoricalCrossentropy` for multi-class classification.
+* **Optimizer:** `Adam` with a learning rate of 0.001.
 
 ```python
-class EmotionClassifier(nn.Module):
-    def __init__(self, input_dim, num_classes):
-        super().__init__()
-        self.fc1 = nn.Linear(input_dim, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.out = nn.Linear(64, num_classes)
-        self.relu = nn.ReLU()
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import InputLayer, Dense
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.losses import CategoricalCrossentropy
 
-    def forward(self, x):
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        return self.out(x)
+num_classes = y_train.shape[1]  # e.g., 6 emotions
+
+model = Sequential([
+    InputLayer(input_shape=(X_scaled.shape[1],)),  # 180 features
+    Dense(128, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(num_classes, activation='softmax')
+])
+
+model.compile(
+    optimizer=Adam(learning_rate=0.001),
+    loss=CategoricalCrossentropy(),
+    metrics=['accuracy']
+)
 ```
 
 ---
 
-## Training Loop (PyTorch)
+## Training Loop (TensorFlow)
 
-* **Epochs:** 30
-* **Batch size:** 32
-* **Procedure:** For each batch, zero gradients, forward pass, compute loss, backpropagate, optimizer step. Track **average loss** per epoch.
+We leverage Keras’s high-level `model.fit` API to train:
+
+* **Epochs:** 50
+* **Batch size:** 64
 
 ```python
-for epoch in range(30):
-    running_loss = 0.0
-    for inputs, labels in train_loader:
-        optimizer.zero_grad()
-        outputs = model(inputs)
-        loss = criterion(outputs, labels.argmax(dim=1))
-        loss.backward()
-        optimizer.step()
-        running_loss += loss.item()
-    print(f"Epoch {epoch+1}, Loss: {running_loss/len(train_loader):.4f}")
+rlrp = ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=10, patience=2, min_lr=0.0000001)
+history=model.fit(x_train, y_train, batch_size=64, epochs=50, validation_data=(x_test, y_test), callbacks=[rlrp])
 ```
 
 ---
 
-## Expected Outcomes & Inferences
+## Training & Evaluation Results
 
-* **Model performance:** >70% test accuracy (varies by emotion).
-* **Error analysis:** Identify which emotions (e.g., `fear`, `disgust`) are often confused—insightful for understanding acoustic markers of complex affect.
-* **Feature importance:** Analyze learned weights or apply SHAP values to see which MFCCs or spectrogram bands correlate with specific emotions.
+Below are **screenshots** of our key training and evaluation graphs. These visuals help confirm convergence, detect overfitting, and illustrate model performance across emotion classes.
 
-From a social science perspective, this enables:
+1. **Loss and Accuracy Curves**
+   ![Training Loss and Accuracy Curves](screenshots/training_metrics.png)
 
-* Large-scale, objective analysis of emotional tone in speech corpora.
-* Investigations into demographic or contextual moderators of emotional expression.
-* Integration with qualitative studies to triangulate findings.
+2. **Confusion Matrix** on Test Set
+   ![Confusion Matrix](screenshots/confusion_matrix.png)
+
+> **Interpretation:**
+>
+> * The loss curve shows a steady decrease, indicating the model is learning effective feature representations without large plateaus.
+> * The accuracy curve plateaus around 65%, suggesting possible ceiling effects or the need for more complex architectures.
+> * The confusion matrix highlights which emotions (e.g., `fear` vs. `surprise`) are most frequently confused, guiding future data collection or feature-engineering efforts.
 
 ---
 
-## Justification for Anger Detection
+## Inference Example
 
-**Anger** is a fundamental emotion with profound social implications:
+Once trained, our model can infer emotion labels on new audio clips. Below is an example of running inference on a single sample:
 
-* **Conflict dynamics:** anger expression predicts escalation in interpersonal and group conflicts.
-* **Mental health:** persistent anger can signal distress or aggression risk.
-* **Political discourse:** vocal anger shapes persuasion, mobilization, and polarization.
+```python
+# Save the trained model
+model.save("emotion_recognition_model.h5")
+print("Model saved as 'emotion_recognition_model.h5'.")
 
-Automatically detecting anger in large speech datasets empowers social scientists to quantify patterns of hostility, evaluate intervention outcomes, and study cultural norms around emotional expression.
+# Select a random file from Ravdess_df
+random_row = Ravdess_df.sample(n=1).iloc[0]
+random_file_path = random_row['Path']
+true_emotion = random_row['Emotions']
+print(f"Selected file for inference: {random_file_path}")
+print(f"True Emotion: {true_emotion}")
+
+# Load the audio file
+data, sampling_rate = librosa.load(random_file_path, duration=2.5, offset=0.6)
+
+# Extract features for the selected file
+features = extract_features(data)
+features = scaler.transform([features])  # Scale the features
+features = np.expand_dims(features, axis=2)  # Reshape for model input
+
+# Perform inference
+predicted_probabilities = model.predict(features)
+predicted_emotion = encoder.inverse_transform(predicted_probabilities)
+
+print(f"Predicted Emotion: {predicted_emotion[0][0]}") 
+```
+
+> **Use Case for Social Scientists:**
+> Rapidly classify large corpora of speech recordings for emotional content, enabling quantitative analyses of emotional dynamics in interviews, political speeches, or media transcripts.
 
 ---
 
 ## References
 
-* Livingstone, S. R., & Russo, F. A. (2018). The Ryerson Audio-Visual Database of Emotional Speech and Song (**RAVDESS**).
-* Cao, H., Cooper, D. G., Keutmann, M. K., Gur, R. C., Nenkova, A., & Verma, R. (2014). CREMA-D: Crowd-sourced Emotional Multimodal Actors Dataset.
-* Davis, S., & Mermelstein, P. (1980). Comparison of Parametric Representations for Monosyllabic Word Recognition.
-* Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*.
-* Ellis, D. P. W. (2007). Chroma Feature Tutorial.
+1. Livingstone, S. R., & Russo, F. A. (2018). *The Ryerson Audio-Visual Database of Emotional Speech and Song* (RAVDESS). Zenodo.
+2. Cao, H., Cooper, D. G., Keutmann, M. K., Gur, R. C., Nenkova, A., & Verma, R. (2014). *CREMA-D: Crowd-sourced Emotional Multimodal Actors Dataset*.
+3. Davis, S., & Mermelstein, P. (1980). Comparison of Parametric Representations for Monosyllabic Word Recognition. *IEEE Transactions on Acoustics, Speech, and Signal Processing*, 28(4), 357–366.
+4. Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press.
+5. Ellis, D. P. W. (2007). Chroma feature extraction. *International Society for Music Information Retrieval*.
+6. Slaney, M. (1998). Auditory Toolbox. *Interval Research Corporation*.
+7. Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*, 12, 2825–2830.
+8. Chollet, F. (2015). Keras. *GitHub repository*. [https://github.com/keras-team/keras](https://github.com/keras-team/keras)
