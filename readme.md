@@ -122,25 +122,36 @@ We implement a **TensorFlow/Keras** neural network.
 * **Optimizer:** `Adam` with a learning rate of 0.001.
 
 ```python
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import InputLayer, Dense
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.losses import CategoricalCrossentropy
+import keras
+from keras.callbacks import ReduceLROnPlateau
+from keras.models import Sequential
+from keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, Dropout, BatchNormalization
+# from keras.utils import np_utils, to_categorical
+from keras.callbacks import ModelCheckpoint
 
-num_classes = y_train.shape[1]  # e.g., 6 emotions
+model=Sequential()
+model.add(Conv1D(256, kernel_size=5, strides=1, padding='same', activation='relu', input_shape=(x_train.shape[1], 1)))
+model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
 
-model = Sequential([
-    InputLayer(input_shape=(X_scaled.shape[1],)),  # 180 features
-    Dense(128, activation='relu'),
-    Dense(64, activation='relu'),
-    Dense(num_classes, activation='softmax')
-])
+model.add(Conv1D(256, kernel_size=5, strides=1, padding='same', activation='relu'))
+model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
 
-model.compile(
-    optimizer=Adam(learning_rate=0.001),
-    loss=CategoricalCrossentropy(),
-    metrics=['accuracy']
-)
+model.add(Conv1D(128, kernel_size=5, strides=1, padding='same', activation='relu'))
+model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
+model.add(Dropout(0.2))
+
+model.add(Conv1D(64, kernel_size=5, strides=1, padding='same', activation='relu'))
+model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
+
+model.add(Flatten())
+model.add(Dense(units=32, activation='relu'))
+model.add(Dropout(0.3))
+
+model.add(Dense(units=8, activation='softmax'))
+model.compile(optimizer = 'adam' , loss = 'categorical_crossentropy' , metrics = ['accuracy'])
+
+model.summary()
+
 ```
 
 ---
