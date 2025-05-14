@@ -51,6 +51,28 @@ By the end of this notebook, you will be equipped to apply automated emotion det
 **Total original samples:** \~9,800 audio clips.
 **After noise augmentation (doubling):** \~19,600 samples.
 
+
+---
+
+## Dataset Summary & Links
+
+This project leverages two widely recognized datasets for speech emotion recognition, offering a comprehensive foundation for training and evaluating models.
+
+1. **RAVDESS (Ryerson Audio-Visual Database of Emotional Speech & Song)**  
+   The RAVDESS dataset is a benchmark in emotion recognition research. It contains 2,400 high-quality audio files of emotional speech and song, recorded by 24 professional actors (12 male, 12 female). Each recording is labeled with one of eight emotions: neutral, calm, happy, sad, angry, fearful, disgust, and surprised. Additionally, emotions are expressed at two intensity levels, providing nuanced data for model training. The dataset is carefully curated to ensure consistency in audio quality and emotional expression, making it ideal for controlled experiments.  
+   * **Link:** [RAVDESS on Zenodo](https://zenodo.org/record/1188976)  
+
+2. **CREMA-D (Crowd-sourced Emotional Multimodal Actors Dataset)**  
+   CREMA-D is a diverse dataset comprising 7,400 audio clips from 91 actors (48 male, 43 female). Unlike RAVDESS, CREMA-D is crowd-sourced, meaning the emotional labels (anger, disgust, fear, happy, neutral, sad) are annotated by multiple individuals, reflecting varied perspectives. This diversity in labeling adds a layer of naturalism to the dataset, making it suitable for real-world applications. The dataset includes actors from different age groups and ethnicities, enhancing its representativeness.  
+   * **Link:** [CREMA-D Official Website](https://github.com/CheyneyComputerScience/CREMA-D)  
+
+**Combined Dataset Size:**  
+The combined dataset includes approximately 9,800 original audio clips. To further enhance the training data, augmentation techniques such as adding background noise were applied, doubling the dataset size to ~19,600 samples. This augmentation ensures robustness against real-world noise conditions.
+
+Together, these datasets balance controlled and naturalistic recordings, enabling the development of emotion classification models that generalize well across diverse scenarios.
+
+
+
 ---
 
 ## Preprocessing Pipeline
