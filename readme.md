@@ -41,19 +41,6 @@ By the end of this notebook, you will be equipped to apply automated emotion det
 
 ---
 
-## Datasets
-
-* **RAVDESS (Ryerson Audio-Visual Database of Emotional Speech & Song)**
-  • Original speech samples: actor\_01 → actor\_24, 8 emotions × 2 intensities × 2 modalities → \~2,400 WAV files.
-* **CREMA-D (Crowd-sourced Emotional Multimodal Actors dataset)**
-  • \~7,400 WAV files labeled with 6 basic emotions by 91 actors.
-
-**Total original samples:** \~9,800 audio clips.
-**After noise augmentation (doubling):** \~19,600 samples.
-
-
----
-
 ## Dataset Summary & Links
 
 This project leverages two widely recognized datasets for speech emotion recognition, offering a comprehensive foundation for training and evaluating models.
