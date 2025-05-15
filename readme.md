@@ -8,7 +8,7 @@ Every human conversation carries hidden emotional currents—anger, joy, fear, a
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Datasets](#dataset-summary-&-links)
+2. [Datasets](#dataset-summary--links)
 3. [Preprocessing Pipeline](#preprocessing-pipeline)
 
    * A. Data Cleaning & Organization
