@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - bioconda
   - defaults
-  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/bin
   - https://repo.anaconda.com/pkgs/r
 dependencies:
   - anyio=4.6.2=py39hca03da5_0
