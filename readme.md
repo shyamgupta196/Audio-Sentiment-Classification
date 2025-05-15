@@ -28,7 +28,9 @@ Every human conversation carries hidden emotional currents—anger, joy, fear, a
 
 In the current landscape of social research, understanding emotional tone in speech data is invaluable—whether studying political rhetoric, clinical interviews, or media narratives. This tutorial guides social scientists through a reproducible, end-to-end pipeline for **speech emotion classification**, leveraging two benchmark datasets (RAVDESS, CREMA-D) and modern deep learning.
 
-You will learn how to:
+Follow the notebook in **[GITHUB](https://github.com/shyamgupta196/Audio-Sentiment-Classification/blob/main/audio-sentiment-classification.ipynb)** for code and detailed tutorial.
+
+In the Notebook You will learn how to:
 
 1. **Organize and clean** raw audio files from multiple sources, ensuring consistency and reliability.
 2. **Augment** recordings to mimic real-world conditions and address class imbalances.
@@ -37,8 +39,7 @@ You will learn how to:
 5. **Implement and train** a TensorFlow/Keras classifier, interpreting loss and accuracy trends to validate model robustness.
 6. **Perform inference** on new speech samples, enabling large-scale emotional content analysis.
 
-By the end of this notebook, you will be equipped to apply automated emotion detection to your own speech corpora—drawing actionable insights into anger, joy, sadness, and more, with clear methodological justifications at every step.
-
+By the end, you will be equipped to apply automated emotion detection to your own speech corpora—drawing actionable insights into anger, joy, sadness, and more, with clear methodological justifications at every step.
 ---
 
 ## Dataset Summary & Links
@@ -57,8 +58,6 @@ This project leverages two widely recognized datasets for speech emotion recogni
 The combined dataset includes approximately 9,800 original audio clips. To further enhance the training data, augmentation techniques such as adding background noise were applied, doubling the dataset size to ~19,600 samples. This augmentation ensures robustness against real-world noise conditions.
 
 Together, these datasets balance controlled and naturalistic recordings, enabling the development of emotion classification models that generalize well across diverse scenarios.
-
-
 
 ---
 
