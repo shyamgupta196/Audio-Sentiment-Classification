@@ -1,5 +1,5 @@
 # Emotion Classification of Speech Audio
-[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shyamgupta196/Audio-Sentiment-Classification/HEAD) 
+[![binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shyamgupta196/Audio-Sentiment-Classification/HEAD) 
 
 Every human conversation carries hidden emotional currents—anger, joy, fear, and more—that shape social interactions, influence decision-making, and signal mental wellbeing. Yet manually analyzing thousands of audio recordings is impractical for large-scale social research. This tutorial tackles that challenge head-on by demonstrating an end-to-end pipeline for automated emotion classification in speech audio. Using the benchmark RAVDESS and CREMA-D datasets, you’ll learn how to transform raw recordings into actionable insight: from organizing and preprocessing noisy clips to extracting perceptual features and training a TensorFlow model to detect emotions.
 
