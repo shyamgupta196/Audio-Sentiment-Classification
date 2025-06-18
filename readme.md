@@ -247,3 +247,6 @@ print(f"Predicted Emotion: {predicted_emotion[0][0]}")
 6. Slaney, M. (1998). Auditory Toolbox. *Interval Research Corporation*.
 7. Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*, 12, 2825–2830.
 8. Chollet, F. (2015). Keras. *GitHub repository*. [https://github.com/keras-team/keras](https://github.com/keras-team/keras)
+
+## Contact Details
+shyam.gupta@gesis.org
