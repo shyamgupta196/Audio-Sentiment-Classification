@@ -236,6 +236,8 @@ print(f"Predicted Emotion: {predicted_emotion[0][0]}")
 > Rapidly classify large corpora of speech recordings for emotional content, enabling quantitative analyses of emotional dynamics in interviews, political speeches, or media transcripts.
 
 ---
+## Conclusion
+We classified 8 emotions with 50% testing accuracy. This is a huge success considering the size of the model and dataset we used. For further use, one may replace the architechture with more complex architecture and get more fine tuned model for identifying audio sentiments. 
 
 ## References
 
