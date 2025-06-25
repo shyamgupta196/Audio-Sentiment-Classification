@@ -4,31 +4,8 @@
  ![](https://img.shields.io/badge/License-MIT-blue) 
 [![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shyamgupta196/Audio-Sentiment-Classification/HEAD) 
 
+## Learning Objective
 Every human conversation carries hidden emotional currents—anger, joy, fear, and more—that shape social interactions, influence decision-making, and signal mental wellbeing. Yet manually analyzing thousands of audio recordings is impractical for large-scale social research. This tutorial tackles that challenge head-on by demonstrating an end-to-end pipeline for automated emotion classification in speech audio. Using the benchmark RAVDESS and CREMA-D datasets, you’ll learn how to transform raw recordings into actionable insight: from organizing and preprocessing noisy clips to extracting perceptual features and training a TensorFlow model to detect emotions.
-
----
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Datasets](#dataset-summary--links)
-3. [Preprocessing Pipeline](#preprocessing-pipeline)
-
-   * A. Data Cleaning & Organization
-   * B. Data Augmentation
-   * C. Feature Extraction
-   * D. Scaling & Normalization
-   * E. Label Encoding & Split
-4. [Feature Summary & Dataset Sizes](#feature-summary--dataset-sizes)
-5. [Model Architecture](#model-architecture)
-6. [Training Loop (Tensorflow)](#training-loop-tensorflow)
-7. [Expected Outcomes & Inferences](#expected-outcomes--inferences)
-8. [Justification for Anger Detection](#justification-for-anger-detection)
-9. [References](#references)
-
----
-
-## Overview
 
 In the current landscape of social research, understanding emotional tone in speech data is invaluable—whether studying political rhetoric, clinical interviews, or media narratives. This tutorial guides social scientists through a reproducible, end-to-end pipeline for **speech emotion classification**, leveraging two benchmark datasets (RAVDESS, CREMA-D) and modern deep learning.
 
