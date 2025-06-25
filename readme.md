@@ -21,6 +21,7 @@ In the Notebook You will learn how to:
 6. **Perform inference** on new speech samples, enabling large-scale emotional content analysis.
 
 By the end, you will be equipped to apply automated emotion detection to your own speech corpora—drawing actionable insights into anger, joy, sadness, and more, with clear methodological justifications at every step.
+
 ---
 
 ## Dataset Summary & Links
