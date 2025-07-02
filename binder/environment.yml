@@ -1,6 +1,4 @@
-name: environment-name
+name: venv
 channels:
-  - https://repo.anaconda.com/pkgs/main
   - defaults
-  - https://repo.anaconda.com/pkgs/r
-prefix: /opt/anaconda3/envs/environment-name
+prefix: /opt/conda/envs/venv
