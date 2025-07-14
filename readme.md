@@ -22,6 +22,17 @@ In the Notebook You will learn how to:
 
 By the end, you will be equipped to apply automated emotion detection to your own speech corpora—drawing actionable insights into anger, joy, sadness, and more, with clear methodological justifications at every step.
 
+## Target Audience
+
+This tutorial is designed for:
+
+- **Social scientists** interested in analyzing emotional content in speech data for research in psychology, sociology, political science, or media studies.
+- **Data scientists and machine learning practitioners** seeking practical guidance on building end-to-end pipelines for audio emotion recognition.
+- **Students and educators** looking for hands-on examples of applying deep learning to real-world audio datasets.
+- **Developers** aiming to integrate emotion classification into applications such as virtual assistants, call center analytics, or mental health monitoring tools.
+
+No prior experience with audio processing is required, but basic familiarity with Python and machine learning concepts will be helpful.
+
 ---
 
 ## Dataset Summary & Links
