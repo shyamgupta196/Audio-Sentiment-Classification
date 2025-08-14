@@ -52,6 +52,9 @@ The combined dataset includes approximately 9,800 original audio clips. To furth
 
 Together, these datasets balance controlled and naturalistic recordings, enabling the development of emotion classification models that generalize well across diverse scenarios.
 
+## Output 
+All outputs—including the trained model, predictions, and evaluation artifacts—are stored in the `output` directory. After training, the model is saved as `emotion_recognition_model.h5` within this folder. Predictions on the test set, confusion matrices, and training logs are also written to the same location for easy access and reproducibility. This centralized output management ensures that both the model and its results are available for further analysis or deployment.
+
 ---
 
 ## Preprocessing Pipeline
