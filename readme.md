@@ -9,7 +9,7 @@ Every human conversation carries hidden emotional currents—anger, joy, fear, a
 
 In the current landscape of social research, understanding emotional tone in speech data is invaluable—whether studying political rhetoric, clinical interviews, or media narratives. This tutorial guides social scientists through a reproducible, end-to-end pipeline for **speech emotion classification**, leveraging two benchmark datasets (RAVDESS, CREMA-D) and modern deep learning.
 
-Follow the notebook in **[GITHUB](https://github.com/shyamgupta196/Audio-Sentiment-Classification/blob/main/audio-sentiment-classification.ipynb)** for code and detailed tutorial.
+Follow the **[notebook](https://github.com/shyamgupta196/Audio-Sentiment-Classification/blob/main/audio-sentiment-classification.ipynb)** for code and detailed tutorial.
 
 In the Notebook You will learn how to:
 
@@ -33,9 +33,26 @@ This tutorial is designed for:
 
 No prior experience with audio processing is required, but basic familiarity with Python and machine learning concepts will be helpful.
 
----
+
+## Setting up the computational environment
+We recommend using a virtual environment to avoid conflicts with other projects. A standard machine with more than 4GB ram and a good CPU(i5 13th gen)/GPU(2080RTX) should be fine. 
+
+To run this tutorial, you will need the following Python packages installed:
+
+```bash
+conda create -n env python=3.11
+conda activate env
+pip install -r requirements.txt
+```
+
+
+## Social Science Use Cases
+
+Emotion classification in speech data opens new avenues for social science research. By analyzing emotional tones in interviews, political speeches, or media broadcasts, researchers can uncover patterns in human behavior, societal trends, and communication dynamics. For instance, studying emotional shifts in political rhetoric can reveal strategies used to influence public opinion, while analyzing clinical interviews can provide insights into mental health conditions. This automated approach enables large-scale, reproducible studies that were previously impractical with manual annotation, empowering social scientists to explore the emotional undercurrents of human interaction with unprecedented depth.
+
 
 ## Dataset Summary & Links
+Note - `We use a sample dataset in this tutorial, but you can use the full dataset for your own research from the links below.`
 
 This project leverages two widely recognized datasets for speech emotion recognition, offering a comprehensive foundation for training and evaluating models.
 
@@ -55,7 +72,6 @@ Together, these datasets balance controlled and naturalistic recordings, enablin
 ## Output 
 All outputs—including the trained model, predictions, and evaluation artifacts—are stored in the `output` directory. After training, the model is saved as `emotion_recognition_model.h5` within this folder. Predictions on the test set, confusion matrices, and training logs are also written to the same location for easy access and reproducibility. This centralized output management ensures that both the model and its results are available for further analysis or deployment.
 
----
 
 ## Preprocessing Pipeline
 
