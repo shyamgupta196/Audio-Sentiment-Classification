@@ -48,8 +48,7 @@ pip install -r requirements.txt
 
 ## Social Science Use Cases
 
-Emotion classification in speech data opens new avenues for social science research. By analyzing emotional tones in interviews, political speeches, or media broadcasts, researchers can uncover patterns in human behavior, societal trends, and communication dynamics. For instance, studying emotional shifts in political rhetoric can reveal strategies used to influence public opinion, while analyzing clinical interviews can provide insights into mental health conditions. This automated approach enables large-scale, reproducible studies that were previously impractical with manual annotation, empowering social scientists to explore the emotional undercurrents of human interaction with unprecedented depth.
-
+> Rapidly classify large corpora of speech recordings for emotional content, enabling quantitative analyses of emotional dynamics in interviews, political speeches, or media transcripts.
 
 ## Dataset Summary & Links
 Note - `We use a sample dataset in this tutorial, but you can use the full dataset for your own research from the links below.`
@@ -240,8 +239,7 @@ predicted_emotion = encoder.inverse_transform(predicted_probabilities)
 print(f"Predicted Emotion: {predicted_emotion[0][0]}") 
 ```
 
-> **Use Case for Social Scientists:**
-> Rapidly classify large corpora of speech recordings for emotional content, enabling quantitative analyses of emotional dynamics in interviews, political speeches, or media transcripts.
+
 
 ---
 ## Conclusion
