@@ -1,6 +1,6 @@
 # Emotion Classification of Speech Audio
 
-[![MethodsHub❤️ Guidelines](https://img.shields.io/badge/MethodsHub_Tutorial-GuidelinesV3-lightblue)](https://github.com/GESIS-Methods-Hub/guidelines-for-tutorials)
+[![MethodsHub❤️ Guidelines](https://img.shields.io/badge/MethodsHub_Tutorial-GuidelinesV3-lightblue)](https://github.com/GESIS-Methods-Hub/guidelines)
  ![](https://img.shields.io/badge/License-MIT-blue) 
 [![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shyamgupta196/Audio-Sentiment-Classification/HEAD) 
 
